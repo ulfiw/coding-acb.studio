@@ -58,21 +58,27 @@ body {
 }
 
 .regform__password-meter-fill {
+  border-radius: 4px;
   height: 100%;
   width: 0;
-  border-radius: 4px;
 }
 
 .regform__password-meter-fill--weak {
-  background: red;
+  background: #B30000;
+  border-radius: 4px;
+  height: 100%;
 }
 
 .regform__password-meter-fill--medium {
-  background: yellow;
+  background: #DDB30E;
+  border-radius: 4px;
+  height: 100%;
 }
 
 .regform__password-meter-fill--strong {
-  background: green;
+  background: #006600;
+  border-radius: 4px;
+  height: 100%;
 }
 
 .regform__validation-feedback {
@@ -88,11 +94,11 @@ body {
 }
 
 .regform__valid-fb-li--valid {
-  color: green;
+  color: #006600;
 }
 
 .regform__valid-fb-li--invalid {
-  color: red;
+  color: #B30000;
 }
 
 .regform__pw-valid-icon {
@@ -107,7 +113,7 @@ body {
 
 button {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #0056B3;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -116,7 +122,8 @@ button {
 }
 
 button:disabled {
-  background-color: #cccccc;
+  background-color: #555555;
+  cursor: default;
 }
 
 .regform__footer {
