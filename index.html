@@ -169,7 +169,7 @@
     const passwordStrengthLabel = document.getElementById('password-strength-label');
     const submitButton = document.querySelector('button[type="submit"]');
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
     const rules = [
       { regex: /.{8,}/, message: 'At least 8 characters' },
       { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'At least one special character' },
