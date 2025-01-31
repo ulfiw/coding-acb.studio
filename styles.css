@@ -11,7 +11,7 @@ body {
   height: 100vh;
 }
 
-.form-container {
+.regform {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -20,80 +20,79 @@ body {
   max-width: 400px;
 }
 
-.form-container h1 {
+.regform__headline {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.form-group {
+.regform__group {
   margin-bottom: 1rem;
 }
 
-label {
+.regform__label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
-input[type="email"],
-input[type="password"] {
+.regform__textinput {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.password-meter {
+.regform__password-meter {
   height: 8px;
   background: #e0e0e0;
   border-radius: 4px;
   margin: 0.5rem 0;
 }
 
-.password-meter-fill {
+.regform__password-meter-fill {
   height: 100%;
   width: 0;
   border-radius: 4px;
 }
 
-.password-meter-fill.weak {
+.regform__password-meter-fill--weak {
   background: red;
 }
 
-.password-meter-fill.medium {
+.regform__password-meter-fill--medium {
   background: yellow;
 }
 
-.password-meter-fill.strong {
+.regform__password-meter-fill--strong {
   background: green;
 }
 
-.validation-feedback {
+.regform__validation-feedback {
   list-style: none;
   padding: 0;
   font-size: 0.875rem;
 }
 
-.validation-feedback li {
+.regfor__validation-feedback-listitem {
   margin-bottom: 0.25rem;
   display: flex;
   align-items: center;
 }
 
-.validation-feedback li.valid {
+.regform__valid-fb-li--valid {
   color: green;
 }
 
-.validation-feedback li.invalid {
+.regform__valid-fb-li--invalid {
   color: red;
 }
 
-.validation-feedback li span {
+.regform__pw-valid-icon {
   margin-right: 0.5rem;
   display: inline-block;
 }
 
-.password-strength-label {
+.regform__password-strength-label {
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
@@ -112,7 +111,7 @@ button:disabled {
   background-color: #cccccc;
 }
 
-.form-footer {
+.regform__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;

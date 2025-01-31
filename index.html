@@ -8,30 +8,30 @@
   <script src="scripts.js" defer></script>
 </head>
 <body>
-  <div class="form-container">
-    <h1 class="h1">Register</h1>
+  <div class="regform">
+    <h2 class="regform__headline">Register</h2>
     <form id="registration-form">
-      <div class="form-group">
-        <label class="label" id="email-label" for="email">E-Mail Address</label>
-        <input class="input" type="email" id="email" name="email" aria-required="true" aria-labelledby="email-label" aria-describedby="email-error" required autofocus>
-        <p id="email-error" class="validation-feedback" aria-live="polite" style="color: red; display: none;">Invalid email format</p>
+      <div class="regform__group">
+        <label class="regform__label" id="email-label" for="email">E-Mail Address</label>
+        <input class="regform__textinput" type="email" id="email" name="email" aria-required="true" aria-labelledby="email-label" aria-describedby="email-error" required autofocus>
+        <p id="email-error" class="regform__validation-feedback" aria-live="polite" style="color: red; display: none;">Invalid email format</p>
       </div>
-      <div class="form-group">
-        <label class="label" for="password" id="password-label">Password</label>
-        <input type="password" id="password" name="password" aria-required="true" aria-labelledby="password-label" aria-describedby="password-feedback" required>
-        <div class="password-meter" aria-hidden="true">
-          <div id="password-meter-fill" class="password-meter-fill"></div>
+      <div class="regform-group">
+        <label class="regform__label" for="password" id="password-label">Password</label>
+        <input class="regform__textinput" type="password" id="password" name="password" aria-required="true" aria-labelledby="password-label" aria-describedby="password-feedback" required>
+        <div class="regform__password-meter" aria-hidden="true">
+          <div id="password-meter-fill" class="regform__password-meter-fill"></div>
         </div>
-        <p id="password-strength-label" class="password-strength-label">Strength: Weak</p>
-        <ul id="password-feedback" class="validation-feedback" aria-live="polite">
-          <li class="invalid"><span>❌</span>At least 8 characters needed</li>
-          <li class="invalid"><span>❌</span>At least one special character needed</li>
-          <li class="invalid"><span>❌</span>At least one number needed</li>
-          <li class="invalid"><span>❌</span>At least one uppercase letter needed</li>
-          <li class="invalid"><span>❌</span>At least one lowercase letter needed</li>
+        <p id="password-strength-label" class="regform__password-strength-label">Strength: Weak</p>
+        <ul id="password-feedback" class="regform__validation-feedback" aria-live="polite">
+          <li class="regform__valid-fb-li--invalid"><span class="regform__pw-valid-icon">❌</span>At least 8 characters needed</li>
+          <li class="regform__valid-fb-li--invalid"><span class="regform__pw-valid-icon">❌</span>At least one special character needed</li>
+          <li class="regform__valid-fb-li--invalid"><span class="regform__pw-valid-icon">❌</span>At least one number needed</li>
+          <li class="regform__valid-fb-li--invalid"><span class="regform__pw-valid-icon">❌</span>At least one uppercase letter needed</li>
+          <li class="regform__valid-fb-li--invalid"><span class="regform__pw-valid-icon">❌</span>At least one lowercase letter needed</li>
         </ul>
       </div>
-      <div class="form-footer">
+      <div class="regform__footer">
         <label>
           <input type="checkbox" id="terms" required>
           I agree to the Terms of Service

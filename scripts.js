@@ -25,7 +25,7 @@ function debounce(func, delay) {
   };
 }
 
-validateEmail = debounce(() => {
+const validateEmail = debounce(() => {
     if (!emailRegex.test(emailInput.value)) {
       emailError.style.display = 'block';
       submitButton.disabled = true;
@@ -37,7 +37,7 @@ validateEmail = debounce(() => {
 
 emailInput.addEventListener('input', validateEmail);
 
-validatePassword = debounce(() => {
+const validatePassword = debounce(() => {
   const value = passwordInput.value;
   let strength = 0;
   const feedbackItems = passwordFeedback.querySelectorAll('li');
@@ -46,9 +46,9 @@ validatePassword = debounce(() => {
     const isValid = rule.regex.test(value);
     const feedbackItem = feedbackItems[index];
     feedbackItem.textContent = rule.message;
-    feedbackItem.classList.toggle('valid', isValid);
-    feedbackItem.classList.toggle('invalid', !isValid);
-    feedbackItem.innerHTML = `<span>${isValid ? '✅' : '❌'}</span>${isValid ? rule.messageValid : rule.messageInvalid}`;
+    feedbackItem.classList.toggle('regform__valid-fb-li--valid', isValid);
+    feedbackItem.classList.toggle('regform__valid-fb-li--invalid', !isValid);
+    feedbackItem.innerHTML = `<span class="regform__pw-valid-icon">${isValid ? '✅' : '❌'}</span>${isValid ? rule.messageValid : rule.messageInvalid}`;
     if (isValid) strength++;
   });
 
