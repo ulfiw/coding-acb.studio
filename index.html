@@ -141,13 +141,13 @@
         <div class="password-meter" aria-hidden="true">
           <div id="password-meter-fill" class="password-meter-fill"></div>
         </div>
-        <p id="password-strength-label" class="password-strength-label" aria-live="polite">Strength: Weak</p>
+        <p id="password-strength-label" class="password-strength-label">Strength: Weak</p>
         <ul id="password-feedback" class="validation-feedback" aria-live="polite">
-          <li class="invalid"><span>❌</span>At least 8 characters</li>
-          <li class="invalid"><span>❌</span>At least one special character</li>
-          <li class="invalid"><span>❌</span>At least one number</li>
-          <li class="invalid"><span>❌</span>At least one uppercase letter</li>
-          <li class="invalid"><span>❌</span>At least one lowercase letter</li>
+          <li class="invalid"><span>❌</span>At least 8 characters needed</li>
+          <li class="invalid"><span>❌</span>At least one special character needed</li>
+          <li class="invalid"><span>❌</span>At least one number needed</li>
+          <li class="invalid"><span>❌</span>At least one uppercase letter needed</li>
+          <li class="invalid"><span>❌</span>At least one lowercase letter needed</li>
         </ul>
       </div>
       <div class="form-footer">
@@ -171,11 +171,11 @@
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
     const rules = [
-      { regex: /.{8,}/, message: 'At least 8 characters' },
-      { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'At least one special character' },
-      { regex: /[0-9]/, message: 'At least one number' },
-      { regex: /[A-Z]/, message: 'At least one uppercase letter' },
-      { regex: /[a-z]/, message: 'At least one lowercase letter' },
+      { regex: /.{8,}/, messageInvalid: 'At least 8 characters needed', messageValid: 'Number of characters correct' },
+      { regex: /[!@#$%^&*(),.?":{}|<>]/, messageInvalid: 'At least one special character needed', messageValid: 'One special character included' },
+      { regex: /[0-9]/, messageInvalid: 'At least one number needed', messageValid: 'One number included' },
+      { regex: /[A-Z]/, messageInvalid: 'At least one uppercase letter needed', messageValid: 'One uppercase letter included' },
+      { regex: /[a-z]/, messageInvalid: 'At least one lowercase letter needed', messageValid: 'One lowercase letter included' },
     ];
     
     function debounce(func, delay) {
@@ -209,7 +209,7 @@
         feedbackItem.textContent = rule.message;
         feedbackItem.classList.toggle('valid', isValid);
         feedbackItem.classList.toggle('invalid', !isValid);
-        feedbackItem.innerHTML = `<span>${isValid ? '✅' : '❌'}</span>${rule.message}`;
+        feedbackItem.innerHTML = `<span>${isValid ? '✅' : '❌'}</span>${isValid ? rule.messageValid : rule.messageInvalid}`;
         if (isValid) strength++;
       });
 
