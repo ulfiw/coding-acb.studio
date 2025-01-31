@@ -82,6 +82,8 @@
 
     .validation-feedback li {
       margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
     }
 
     .validation-feedback li.valid {
@@ -90,6 +92,11 @@
 
     .validation-feedback li.invalid {
       color: red;
+    }
+
+    .validation-feedback li span {
+      margin-right: 0.5rem;
+      display: inline-block;
     }
 
     button {
@@ -129,7 +136,13 @@
         <div class="password-meter" aria-hidden="true">
           <div id="password-meter-fill" class="password-meter-fill"></div>
         </div>
-        <ul id="password-feedback" class="validation-feedback" aria-live="polite"></ul>
+        <ul id="password-feedback" class="validation-feedback" aria-live="polite">
+          <li class="invalid"><span>❌</span>At least 8 characters</li>
+          <li class="invalid"><span>❌</span>At least one special character</li>
+          <li class="invalid"><span>❌</span>At least one number</li>
+          <li class="invalid"><span>❌</span>At least one uppercase letter</li>
+          <li class="invalid"><span>❌</span>At least one lowercase letter</li>
+        </ul>
       </div>
       <div class="form-footer">
         <label>
@@ -171,14 +184,15 @@
     passwordInput.addEventListener('input', () => {
       const value = passwordInput.value;
       let strength = 0;
-      passwordFeedback.innerHTML = '';
+      const feedbackItems = passwordFeedback.querySelectorAll('li');
 
-      rules.forEach(rule => {
+      rules.forEach((rule, index) => {
         const isValid = rule.regex.test(value);
-        const feedbackItem = document.createElement('li');
+        const feedbackItem = feedbackItems[index];
         feedbackItem.textContent = rule.message;
-        feedbackItem.classList.add(isValid ? 'valid' : 'invalid');
-        passwordFeedback.appendChild(feedbackItem);
+        feedbackItem.classList.toggle('valid', isValid);
+        feedbackItem.classList.toggle('invalid', !isValid);
+        feedbackItem.innerHTML = `<span>${isValid ? '✅' : '❌'}</span>${rule.message}`;
         if (isValid) strength++;
       });
 
