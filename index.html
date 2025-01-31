@@ -177,18 +177,28 @@
       { regex: /[A-Z]/, message: 'At least one uppercase letter' },
       { regex: /[a-z]/, message: 'At least one lowercase letter' },
     ];
+    
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
 
-    emailInput.addEventListener('input', () => {
-      if (!emailRegex.test(emailInput.value)) {
-        emailError.style.display = 'block';
-        submitButton.disabled = true;
-      } else {
-        emailError.style.display = 'none';
-        submitButton.disabled = false;
-      }
-    });
+    validateEmail = debounce(() => {
+        if (!emailRegex.test(emailInput.value)) {
+          emailError.style.display = 'block';
+          submitButton.disabled = true;
+        } else {
+          emailError.style.display = 'none';
+          submitButton.disabled = false;
+        }
+      }, 300);
 
-    passwordInput.addEventListener('input', () => {
+    emailInput.addEventListener('input', validateEmail);
+
+    validatePassword = debounce(() => {
       const value = passwordInput.value;
       let strength = 0;
       const feedbackItems = passwordFeedback.querySelectorAll('li');
@@ -225,7 +235,9 @@
       passwordStrengthLabel.textContent = `Strength: ${strengthLabel}`;
 
       submitButton.disabled = strength < 5 || !emailRegex.test(emailInput.value);
-    });
+    }, 300);
+
+    passwordInput.addEventListener('input', validatePassword);
 
     document.getElementById('registration-form').addEventListener('submit', (e) => {
       e.preventDefault();
