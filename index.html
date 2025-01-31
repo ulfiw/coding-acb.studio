@@ -4,139 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Challenge acb.studio – Ulf Walter-Laufs</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .form-container {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .form-container h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .password-meter {
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
-      margin: 0.5rem 0;
-    }
-
-    .password-meter-fill {
-      height: 100%;
-      width: 0;
-      border-radius: 4px;
-    }
-
-    .password-meter-fill.weak {
-      background: red;
-    }
-
-    .password-meter-fill.medium {
-      background: yellow;
-    }
-
-    .password-meter-fill.strong {
-      background: green;
-    }
-
-    .validation-feedback {
-      list-style: none;
-      padding: 0;
-      font-size: 0.875rem;
-    }
-
-    .validation-feedback li {
-      margin-bottom: 0.25rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .validation-feedback li.valid {
-      color: green;
-    }
-
-    .validation-feedback li.invalid {
-      color: red;
-    }
-
-    .validation-feedback li span {
-      margin-right: 0.5rem;
-      display: inline-block;
-    }
-
-    .password-strength-label {
-      font-size: 0.875rem;
-      margin-top: 0.5rem;
-    }
-
-    button {
-      display: inline-block;
-      background-color: #007bff;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background-color: #cccccc;
-    }
-
-    .form-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js" defer></script>
 </head>
 <body>
   <div class="form-container">
-    <h1>Register</h1>
+    <h1 class="h1">Register</h1>
     <form id="registration-form">
       <div class="form-group">
-        <label id="email-label" for="email">E-Mail Address</label>
-        <input type="email" id="email" name="email" aria-required="true" aria-labelledby="email-label" aria-describedby="email-error" required autofocus>
+        <label class="label" id="email-label" for="email">E-Mail Address</label>
+        <input class="input" type="email" id="email" name="email" aria-required="true" aria-labelledby="email-label" aria-describedby="email-error" required autofocus>
         <p id="email-error" class="validation-feedback" aria-live="polite" style="color: red; display: none;">Invalid email format</p>
       </div>
       <div class="form-group">
-        <label for="password" id="password-label">Password</label>
+        <label class="label" for="password" id="password-label">Password</label>
         <input type="password" id="password" name="password" aria-required="true" aria-labelledby="password-label" aria-describedby="password-feedback" required>
         <div class="password-meter" aria-hidden="true">
           <div id="password-meter-fill" class="password-meter-fill"></div>
@@ -159,90 +40,5 @@
       </div>
     </form>
   </div>
-
-  <script>
-    const emailInput = document.getElementById('email');
-    const emailError = document.getElementById('email-error');
-    const passwordInput = document.getElementById('password');
-    const passwordMeterFill = document.getElementById('password-meter-fill');
-    const passwordFeedback = document.getElementById('password-feedback');
-    const passwordStrengthLabel = document.getElementById('password-strength-label');
-    const submitButton = document.querySelector('button[type="submit"]');
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-    const rules = [
-      { regex: /.{8,}/, messageInvalid: 'At least 8 characters needed', messageValid: 'Number of characters correct' },
-      { regex: /[!@#$%^&*(),.?":{}|<>]/, messageInvalid: 'At least one special character needed', messageValid: 'One special character included' },
-      { regex: /[0-9]/, messageInvalid: 'At least one number needed', messageValid: 'One number included' },
-      { regex: /[A-Z]/, messageInvalid: 'At least one uppercase letter needed', messageValid: 'One uppercase letter included' },
-      { regex: /[a-z]/, messageInvalid: 'At least one lowercase letter needed', messageValid: 'One lowercase letter included' },
-    ];
-    
-    function debounce(func, delay) {
-      let timeout;
-      return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-      };
-    }
-
-    validateEmail = debounce(() => {
-        if (!emailRegex.test(emailInput.value)) {
-          emailError.style.display = 'block';
-          submitButton.disabled = true;
-        } else {
-          emailError.style.display = 'none';
-          submitButton.disabled = false;
-        }
-      }, 300);
-
-    emailInput.addEventListener('input', validateEmail);
-
-    validatePassword = debounce(() => {
-      const value = passwordInput.value;
-      let strength = 0;
-      const feedbackItems = passwordFeedback.querySelectorAll('li');
-
-      rules.forEach((rule, index) => {
-        const isValid = rule.regex.test(value);
-        const feedbackItem = feedbackItems[index];
-        feedbackItem.textContent = rule.message;
-        feedbackItem.classList.toggle('valid', isValid);
-        feedbackItem.classList.toggle('invalid', !isValid);
-        feedbackItem.innerHTML = `<span>${isValid ? '✅' : '❌'}</span>${isValid ? rule.messageValid : rule.messageInvalid}`;
-        if (isValid) strength++;
-      });
-
-      let strengthLabel;
-      if (strength === 0) {
-        passwordMeterFill.style.width = '0';
-        passwordMeterFill.className = 'password-meter-fill';
-        strengthLabel = 'Weak';
-      } else if (strength < 3) {
-        passwordMeterFill.style.width = '33%';
-        passwordMeterFill.className = 'password-meter-fill weak';
-        strengthLabel = 'Weak';
-      } else if (strength < 5) {
-        passwordMeterFill.style.width = '66%';
-        passwordMeterFill.className = 'password-meter-fill medium';
-        strengthLabel = 'Medium';
-      } else {
-        passwordMeterFill.style.width = '100%';
-        passwordMeterFill.className = 'password-meter-fill strong';
-        strengthLabel = 'Strong';
-      }
-
-      passwordStrengthLabel.textContent = `Strength: ${strengthLabel}`;
-
-      submitButton.disabled = strength < 5 || !emailRegex.test(emailInput.value);
-    }, 300);
-
-    passwordInput.addEventListener('input', validatePassword);
-
-    document.getElementById('registration-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Registration successful!');
-    });
-  </script>
 </body>
 </html>

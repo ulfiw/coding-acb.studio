@@ -1,1 +1,120 @@
 /* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-container h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.password-meter {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+
+.password-meter-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+}
+
+.password-meter-fill.weak {
+  background: red;
+}
+
+.password-meter-fill.medium {
+  background: yellow;
+}
+
+.password-meter-fill.strong {
+  background: green;
+}
+
+.validation-feedback {
+  list-style: none;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.validation-feedback li {
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.validation-feedback li.valid {
+  color: green;
+}
+
+.validation-feedback li.invalid {
+  color: red;
+}
+
+.validation-feedback li span {
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+.password-strength-label {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+button {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
