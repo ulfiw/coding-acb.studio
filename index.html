@@ -131,13 +131,13 @@
     <h1>Register</h1>
     <form id="registration-form">
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" aria-required="true" aria-label="Email address" required>
+        <label id="email-label" for="email">E-Mail Address</label>
+        <input type="email" id="email" name="email" aria-required="true" aria-labelledby="email-label" aria-describedby="email-error" required autofocus>
         <p id="email-error" class="validation-feedback" aria-live="polite" style="color: red; display: none;">Invalid email format</p>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" aria-required="true" aria-label="Password" required>
+        <label for="password" id="password-label">Password</label>
+        <input type="password" id="password" name="password" aria-required="true" aria-labelledby="password-label" aria-describedby="password-feedback" required>
         <div class="password-meter" aria-hidden="true">
           <div id="password-meter-fill" class="password-meter-fill"></div>
         </div>
