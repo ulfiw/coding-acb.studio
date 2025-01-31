@@ -121,6 +121,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" aria-required="true" aria-label="Email address" required>
+        <p id="email-error" class="validation-feedback" aria-live="polite" style="color: red; display: none;">Invalid email format</p>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -141,11 +142,14 @@
   </div>
 
   <script>
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
     const passwordInput = document.getElementById('password');
     const passwordMeterFill = document.getElementById('password-meter-fill');
     const passwordFeedback = document.getElementById('password-feedback');
     const submitButton = document.querySelector('button[type="submit"]');
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const rules = [
       { regex: /.{8,}/, message: 'At least 8 characters' },
       { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'At least one special character' },
@@ -153,6 +157,16 @@
       { regex: /[A-Z]/, message: 'At least one uppercase letter' },
       { regex: /[a-z]/, message: 'At least one lowercase letter' },
     ];
+
+    emailInput.addEventListener('input', () => {
+      if (!emailRegex.test(emailInput.value)) {
+        emailError.style.display = 'block';
+        submitButton.disabled = true;
+      } else {
+        emailError.style.display = 'none';
+        submitButton.disabled = false;
+      }
+    });
 
     passwordInput.addEventListener('input', () => {
       const value = passwordInput.value;
@@ -182,7 +196,7 @@
         passwordMeterFill.className = 'password-meter-fill strong';
       }
 
-      submitButton.disabled = strength < 5;
+      submitButton.disabled = strength < 5 || !emailRegex.test(emailInput.value);
     });
 
     document.getElementById('registration-form').addEventListener('submit', (e) => {
