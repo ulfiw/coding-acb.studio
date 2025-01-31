@@ -4,8 +4,191 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Challenge acb.studio – Ulf Walter-Laufs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-container h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .password-meter {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      margin: 0.5rem 0;
+    }
+
+    .password-meter-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 4px;
+    }
+
+    .password-meter-fill.weak {
+      background: red;
+    }
+
+    .password-meter-fill.medium {
+      background: yellow;
+    }
+
+    .password-meter-fill.strong {
+      background: green;
+    }
+
+    .validation-feedback {
+      list-style: none;
+      padding: 0;
+      font-size: 0.875rem;
+    }
+
+    .validation-feedback li {
+      margin-bottom: 0.25rem;
+    }
+
+    .validation-feedback li.valid {
+      color: green;
+    }
+
+    .validation-feedback li.invalid {
+      color: red;
+    }
+
+    button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
-  
+  <div class="form-container">
+    <h1>Register</h1>
+    <form id="registration-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" aria-required="true" aria-label="Email address" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" aria-required="true" aria-label="Password" required>
+        <div class="password-meter" aria-hidden="true">
+          <div id="password-meter-fill" class="password-meter-fill"></div>
+        </div>
+        <ul id="password-feedback" class="validation-feedback" aria-live="polite"></ul>
+      </div>
+      <div class="form-footer">
+        <label>
+          <input type="checkbox" id="terms" required>
+          I agree to the Terms of Service
+        </label>
+        <button type="submit" disabled>Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const passwordMeterFill = document.getElementById('password-meter-fill');
+    const passwordFeedback = document.getElementById('password-feedback');
+    const submitButton = document.querySelector('button[type="submit"]');
+
+    const rules = [
+      { regex: /.{8,}/, message: 'At least 8 characters' },
+      { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'At least one special character' },
+      { regex: /[0-9]/, message: 'At least one number' },
+      { regex: /[A-Z]/, message: 'At least one uppercase letter' },
+      { regex: /[a-z]/, message: 'At least one lowercase letter' },
+    ];
+
+    passwordInput.addEventListener('input', () => {
+      const value = passwordInput.value;
+      let strength = 0;
+      passwordFeedback.innerHTML = '';
+
+      rules.forEach(rule => {
+        const isValid = rule.regex.test(value);
+        const feedbackItem = document.createElement('li');
+        feedbackItem.textContent = rule.message;
+        feedbackItem.classList.add(isValid ? 'valid' : 'invalid');
+        passwordFeedback.appendChild(feedbackItem);
+        if (isValid) strength++;
+      });
+
+      if (strength === 0) {
+        passwordMeterFill.style.width = '0';
+        passwordMeterFill.className = 'password-meter-fill';
+      } else if (strength < 3) {
+        passwordMeterFill.style.width = '33%';
+        passwordMeterFill.className = 'password-meter-fill weak';
+      } else if (strength < 5) {
+        passwordMeterFill.style.width = '66%';
+        passwordMeterFill.className = 'password-meter-fill medium';
+      } else {
+        passwordMeterFill.style.width = '100%';
+        passwordMeterFill.className = 'password-meter-fill strong';
+      }
+
+      submitButton.disabled = strength < 5;
+    });
+
+    document.getElementById('registration-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Registration successful!');
+    });
+  </script>
 </body>
 </html>
