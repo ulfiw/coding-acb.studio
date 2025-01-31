@@ -55,19 +55,19 @@ const validatePassword = debounce(() => {
   let strengthLabel;
   if (strength === 0) {
     passwordMeterFill.style.width = '0';
-    passwordMeterFill.className = 'password-meter-fill';
-    strengthLabel = 'Weak';
+    passwordMeterFill.className = 'regform__password-meter-fill';
+    strengthLabel = 'None';
   } else if (strength < 3) {
     passwordMeterFill.style.width = '33%';
-    passwordMeterFill.className = 'password-meter-fill weak';
+    passwordMeterFill.className = 'regform__password-meter-fill--weak';
     strengthLabel = 'Weak';
   } else if (strength < 5) {
     passwordMeterFill.style.width = '66%';
-    passwordMeterFill.className = 'password-meter-fill medium';
+    passwordMeterFill.className = 'regform__password-meter-fill--medium';
     strengthLabel = 'Medium';
   } else {
     passwordMeterFill.style.width = '100%';
-    passwordMeterFill.className = 'password-meter-fill strong';
+    passwordMeterFill.className = 'regform__password-meter-fill--strong';
     strengthLabel = 'Strong';
   }
 
