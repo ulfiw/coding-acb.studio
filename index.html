@@ -99,6 +99,11 @@
       display: inline-block;
     }
 
+    .password-strength-label {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
     button {
       display: inline-block;
       background-color: #007bff;
@@ -136,6 +141,7 @@
         <div class="password-meter" aria-hidden="true">
           <div id="password-meter-fill" class="password-meter-fill"></div>
         </div>
+        <p id="password-strength-label" class="password-strength-label" aria-live="polite">Strength: Weak</p>
         <ul id="password-feedback" class="validation-feedback" aria-live="polite">
           <li class="invalid"><span>❌</span>At least 8 characters</li>
           <li class="invalid"><span>❌</span>At least one special character</li>
@@ -160,6 +166,7 @@
     const passwordInput = document.getElementById('password');
     const passwordMeterFill = document.getElementById('password-meter-fill');
     const passwordFeedback = document.getElementById('password-feedback');
+    const passwordStrengthLabel = document.getElementById('password-strength-label');
     const submitButton = document.querySelector('button[type="submit"]');
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -196,19 +203,26 @@
         if (isValid) strength++;
       });
 
+      let strengthLabel;
       if (strength === 0) {
         passwordMeterFill.style.width = '0';
         passwordMeterFill.className = 'password-meter-fill';
+        strengthLabel = 'Weak';
       } else if (strength < 3) {
         passwordMeterFill.style.width = '33%';
         passwordMeterFill.className = 'password-meter-fill weak';
+        strengthLabel = 'Weak';
       } else if (strength < 5) {
         passwordMeterFill.style.width = '66%';
         passwordMeterFill.className = 'password-meter-fill medium';
+        strengthLabel = 'Medium';
       } else {
         passwordMeterFill.style.width = '100%';
         passwordMeterFill.className = 'password-meter-fill strong';
+        strengthLabel = 'Strong';
       }
+
+      passwordStrengthLabel.textContent = `Strength: ${strengthLabel}`;
 
       submitButton.disabled = strength < 5 || !emailRegex.test(emailInput.value);
     });
